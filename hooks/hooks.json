@@ -28,6 +28,15 @@
     ],
     "PreToolUse": [
       {
+        "matcher": "tool == \"Bash\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$PLUGIN_DIR/hooks/block-dangerous.sh"
+          }
+        ]
+      },
+      {
         "matcher": "tool == \"Bash\" && command.startsWith(\"git commit\")",
         "hooks": [
           {

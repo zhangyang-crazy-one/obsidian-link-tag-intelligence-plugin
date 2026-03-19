@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(npm test)",
+      "Bash(npm run dev)",
+      "Bash(npm run build)",
+      "Bash(npm run lint)",
+      "Bash(tsc --noEmit)",
+      "Bash(git status)",
+      "Bash(git diff)",
+      "Edit(src/**)",
+      "Read(src/**)",
+      "Read(tests/**)",
+      "Read(manifest.json)",
+      "WebSearch",
+      "WebFetch(domain:zsviczian.github.io)",
+      "WebFetch(domain:docs.obsidian.md)",
+      "WebFetch(domain:github.com)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "Read(./credentials.json)",
+      "Edit(.env)",
+      "Edit(secrets/**)",
+      "Bash(rm -rf /*)",
+      "Bash(rm -rf /tmp)",
+      "Bash(rm -rf /var)",
+      "Bash(rm -rf /home)"
+    ]
+  }
+}
