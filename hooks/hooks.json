@@ -1,0 +1,83 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "true",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$PLUGIN_DIR/hooks/session-init.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "true",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$PLUGIN_DIR/hooks/session-complete.sh"
+          },
+          {
+            "type": "command",
+            "command": "npx eslint src/ --ext .ts"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "tool == \"Bash\" && command.startsWith(\"git commit\")",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$PLUGIN_DIR/hooks/pre-commit-msg.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "tool == \"Bash\" && (command.includes(\"npm run build\") || command.includes(\"npm run lint\"))",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$PLUGIN_DIR/hooks/type-check.sh",
+            "async": true
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$PLUGIN_DIR/hooks/detect-console-log.sh",
+            "async": true
+          }
+        ]
+      },
+      {
+        "matcher": "tool == \"Bash\" && command.includes(\"npm\")",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npm audit --audit-level=moderate",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx prettier --write",
+            "async": true
+          }
+        ]
+      }
+    ]
+  }
+}
